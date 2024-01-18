@@ -22,20 +22,23 @@ class Order(models.Model):
     def __str__(self):
         return str(self.created)
 
-    @property
-    def get_total(self):
-        return sum([food.protien for create in self.created.all()])
         
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,
                               related_name='items',
-                              on_delete=models.CASCADE)
+                              on_delete=models.SET_NULL,
+                              null= True)
     product = models.ForeignKey(Product,
                                 related_name='order_items',
-                                on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
+                                on_delete=models.SET_NULL,
+                                null= True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return str(self.id)
+    
+    @property
+    def total_cost(self):
+        return self.quantity * self.price

@@ -4,8 +4,7 @@
 {% block content %}
 
 <style>
-  .account-form input,
-    {
+  .account-form input{
     border: 2px solid #ccc;
     height: calc(2em + .75rem + 2px);
   }
@@ -69,7 +68,7 @@
                   
                 </div>
             
-                <button id="submit" class="btn btn-primary w-100 fw-bold" value = {{ product.id }} data-secret="{{ client_secret }}">Pay</button>
+                <button id="submit" class="btn btn-primary w-100 fw-bold" value={{product.id}} data-secret="{{ client_secret }}">Pay</button>
               </form>
             </div>
           </div>
@@ -81,9 +80,8 @@
 
 
 <script>
-    {% comment %} Make csrf token availble in JS files {% endcomment %}
     var CSRF_TOKEN = '{{ csrf_token }}';
 </script>
-<script src="{% static 'payment/findex.js' %}" data-rel-js></script>
+<script src="{% static 'payment/findexo.js' %}" data-rel-js></script>
 
 {% endblock %}

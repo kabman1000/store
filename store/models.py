@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.core.validators import MinValueValidator
 
 
 
@@ -22,11 +23,25 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+class SubCategory(models.Model):
+    name = models.CharField(max_length=255, db_index=True)
+    categories = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = 'Subcategories'
+
+    def __str__(self):
+        return self.name
+
+    
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, related_name='product', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null= True)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL, blank=True, null= True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='product_creator')
     title = models.CharField(max_length=255)
+    size = models.CharField(max_length=255, null=True)
     author = models.CharField(max_length=255, default='admin')
     code = models.CharField(max_length=255, default='')
     description = models.TextField(blank=True)
@@ -39,7 +54,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
     objects = models.Manager()
     products = ProductManager()
-    inventory = models.IntegerField(default=0)
+    inventory = models.PositiveIntegerField(default=0)
     featured = models.BooleanField(default=False)
     can_backorder = models.BooleanField(default=False)
 

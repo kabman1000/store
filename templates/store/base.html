@@ -18,6 +18,8 @@
     </script>
     <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
 </head>
 
 <body>
@@ -71,7 +73,7 @@
                     </form>
 
                     {% if user.is_authenticated %}
-                    <a type="button" role="button" href="{% url "account:logout" %}"
+                    <a type="button" role="button" href="http://127.0.0.1:8000/admin/"
                         class="btn btn-outline-secondary border-0 basket-btn">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -81,10 +83,10 @@
                                 <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0z" />
                             </svg>
                         </div>
-                        <span class="fs15 fw500">Logout</span>
+                        <span class="fs15 fw500">Account</span>
                     </a>
                     {% else %}
-                    <a type="button" role="button" href="{% url "account:login" %}"
+                    <a type="button" role="button" href="http://127.0.0.1:8000/admin/"
                         class="btn btn-outline-secondary border-0 basket-btn">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"

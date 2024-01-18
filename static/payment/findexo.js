@@ -1,5 +1,17 @@
-//'use strict';
-var clientsecret = Math.floor((Math.random() * 10000) + 1);
+
+function generateRandomInvoiceNumber(){
+  const characters = '0123456789';
+  const length = 8;
+  let invoiceNumber = '';
+
+  for (let i = 0; i < length; i++ ){
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    invoiceNumber += characters[randomIndex];
+  }
+  return invoiceNumber;
+}
+
+var clientsecret = generateRandomInvoiceNumber();
 
 // Set up Stripe.js and Elements to use in checkout form
 var style = {
