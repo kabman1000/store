@@ -111,7 +111,7 @@ def get_sales_chart(request, year):
         "data": {
             "labels": list(sales_dict.keys()),
             "datasets": [{
-                "label": "Amount ($)",
+                "label": "Amount (₵)",
                 "backgroundColor": colorPrimary,
                 "borderColor": colorPrimary,
                 "data": list(sales_dict.values()),
@@ -121,9 +121,9 @@ def get_sales_chart(request, year):
 
 
 def spend_per_customer_chart(request, year):
-    purchases = Order.objects.filter(time__year=year)
-    grouped_purchases = purchases.annotate(price=F("item__price")).annotate(month=ExtractMonth("time"))\
-        .values("month").annotate(average=Avg("item__price")).values("month", "average").order_by("month")
+    purchases = Order.objects.filter(created__year=year)
+    grouped_purchases = purchases.annotate(price=F("total_paid")).annotate(month=ExtractMonth("created"))\
+        .values("month").annotate(average=Avg("total_paid")).values("month", "average").order_by("month")
 
     spend_per_customer_dict = get_year_dict()
 
@@ -143,50 +143,7 @@ def spend_per_customer_chart(request, year):
         },
     })
 
-def payment_success_chart(request, year):
-    purchases = Order.objects.filter(time__year=year)
 
-    return JsonResponse({
-        "title": f"Payment success rate in {year}",
-        "data": {
-            "labels": ["Successful", "Unsuccessful"],
-            "datasets": [{
-                "label": "Amount ($)",
-                "backgroundColor": [colorSuccess, colorDanger],
-                "borderColor": [colorSuccess, colorDanger],
-                "data": [
-                    purchases.filter(successful=True).count(),
-                    purchases.filter(successful=False).count(),
-                ],
-            }]
-        },
-    })
-
-
-def payment_method_chart(request, year):
-    purchases = Order.objects.filter(time__year=year)
-    grouped_purchases = purchases.values("payment_method").annotate(count=Count("id"))\
-        .values("payment_method", "count").order_by("payment_method")
-
-    payment_method_dict = dict()
-
-    for payment_method in Order.PAYMENT_METHODS:
-        payment_method_dict[payment_method[1]] = 0
-
-    for group in grouped_purchases:
-        payment_method_dict[dict(Order.PAYMENT_METHODS)[group["payment_method"]]] = group["count"]
-
-    return JsonResponse({
-        "title": f"Payment method rate in {year}",
-        "data": {
-            "labels": list(payment_method_dict.keys()),
-            "datasets": [{
-                "label": "Amount ($)",
-                "backgroundColor": generate_color_palette(len(payment_method_dict)),
-                "borderColor": generate_color_palette(len(payment_method_dict)),
-                "data": list(payment_method_dict.values()),
-            }]
-        },
-    })
-
+def statistics_view(request):
+    return render(request, "account/user/statistics.html", {})
 

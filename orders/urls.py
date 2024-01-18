@@ -8,6 +8,7 @@ urlpatterns = [
     path('add/', views.add, name='add'),
 
     #path('<slug:slug>', views.sale_orders, name='sales'),
+    path("statistics/", views.statistics_view, name="shop-statistics"),
     path('sales/', views.sales, name='sales'),
     path('dash/', views.dash, name='dash'),
     path("chart/filter-options/", views.get_filter_options, name="chart-filter-options"),
