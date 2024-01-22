@@ -13,6 +13,7 @@ urlpatterns = [
     path('dash/', views.dash, name='dash'),
     path("chart/filter-options/", views.get_filter_options, name="chart-filter-options"),
     path("chart/sales/<int:year>/", views.get_sales_chart, name="chart-sales"),
+    path("chart/most-sold/<int:year>/", views.get_most_sold_chart, name="chart-most-sold"),
     path("chart/spend-per-customer/<int:year>/", views.spend_per_customer_chart, name="chart-spend-per-customer"),
     #path('generateinvoice/<int:pk>/', views.GenerateInvoice.as_view(), name = 'generateinvoice')
 ]

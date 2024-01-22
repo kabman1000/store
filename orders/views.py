@@ -147,3 +147,25 @@ def spend_per_customer_chart(request, year):
 def statistics_view(request):
     return render(request, "account/user/statistics.html", {})
 
+def get_most_sold_chart(request, year):
+    purchases = Order.objects.filter(created__year=year)
+    grouped_purchases = purchases.annotate(price=F("total_paid")).annotate(month=ExtractMonth("created"))\
+        .values("month").annotate(average=Sum("total_paid")).values("month", "average").order_by("month")
+
+    sales_dict = get_year_dict()
+
+    for group in grouped_purchases:
+        sales_dict[months[group["month"]-1]] = round(group["average"], 2)
+
+    return JsonResponse({
+        "title": f"Sales in {year}",
+        "data": {
+            "labels": list(sales_dict.keys()),
+            "datasets": [{
+                "label": "Amount (₵)",
+                "backgroundColor": colorPrimary,
+                "borderColor": colorPrimary,
+                "data": list(sales_dict.values()),
+            }]
+        },
+    })
