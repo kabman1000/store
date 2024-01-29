@@ -86,6 +86,12 @@ def dash(request):
     return render(request,
                   'account/user/dashmoard.html', {'order_items':order_items, 'orders':orders})
 
+def customer_rel(request):
+    orders = Order.objects.exclude(full_name__isnull=True).annotate(full_name_count=Count('full_name')).filter(full_name_count=1)
+    print(orders)
+    return render(request,
+                  'account/user/customers.html', {'orders':orders})
+
 
 def get_filter_options(request):
     grouped_purchases = Order.objects.annotate(year=ExtractYear("created")).values("year").order_by("-year").distinct()

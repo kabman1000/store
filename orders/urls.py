@@ -16,6 +16,7 @@ urlpatterns = [
     path("chart/sales/<int:year>/", views.get_sales_chart, name="chart-sales"),
     path("chart/most-sold/<int:year>/", views.get_most_sold_chart, name="chart-most-sold"),
     path("chart/least-sold/<int:year>/", views.get_least_sold_chart, name="chart-least-sold"),
+    path('customers/', views.customer_rel, name='customer-rel'),
     path("chart/spend-per-customer/<int:year>/", views.spend_per_customer_chart, name="chart-spend-per-customer"),
     #path('generateinvoice/<int:pk>/', views.GenerateInvoice.as_view(), name = 'generateinvoice')
 ]
