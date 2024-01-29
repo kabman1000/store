@@ -95,27 +95,35 @@ def get_filter_options(request):
         "options": options,
     })
 
-
 def get_sales_chart(request, year):
     purchases = Order.objects.filter(created__year=year)
     grouped_purchases = purchases.annotate(price=F("total_paid")).annotate(month=ExtractMonth("created"))\
         .values("month").annotate(average=Sum("total_paid")).values("month", "average").order_by("month")
-
+        
     sales_dict = get_year_dict()
 
     for group in grouped_purchases:
         sales_dict[months[group["month"]-1]] = round(group["average"], 2)
+
+    fixed_value = 800000
 
     return JsonResponse({
         "title": f"Sales in {year}",
         "data": {
             "labels": list(sales_dict.keys()),
             "datasets": [{
-                "label": "Amount (₵)",
+                "label": "Amount Sold(₵)",
                 "backgroundColor": colorPrimary,
                 "borderColor": colorPrimary,
                 "data": list(sales_dict.values()),
-            }]
+            },
+            {
+                "label": "Cost of Goods(₵)",
+                "backgroundColor": "#df4e73",
+                "borderColor": "#df4e73",
+                "data": [fixed_value] * len(sales_dict),
+            }
+            ]
         },
     })
 
@@ -136,8 +144,8 @@ def spend_per_customer_chart(request, year):
             "labels": list(spend_per_customer_dict.keys()),
             "datasets": [{
                 "label": "Amount ($)",
-                "backgroundColor": colorPrimary,
-                "borderColor": colorPrimary,
+                "backgroundColor": "#4e73df",
+                "borderColor": "#4e73df",
                 "data": list(spend_per_customer_dict.values()),
             }]
         },
@@ -148,24 +156,53 @@ def statistics_view(request):
     return render(request, "account/user/statistics.html", {})
 
 def get_most_sold_chart(request, year):
-    purchases = Order.objects.filter(created__year=year)
-    grouped_purchases = purchases.annotate(price=F("total_paid")).annotate(month=ExtractMonth("created"))\
-        .values("month").annotate(average=Sum("total_paid")).values("month", "average").order_by("month")
+    # Query to get the most sold items for the specified year
+    most_sold_items = OrderItem.objects.filter(order__created__year=year) \
+        .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:10]
+    print(most_sold_items)
 
-    sales_dict = get_year_dict()
+    # Prepare data for the chart
+    labels = [item['product__title'] for item in most_sold_items]
+    quantities = [item['total_quantity'] for item in most_sold_items]
 
-    for group in grouped_purchases:
-        sales_dict[months[group["month"]-1]] = round(group["average"], 2)
-
-    return JsonResponse({
-        "title": f"Sales in {year}",
+    # Prepare JSON response
+    response_data = {
+        "title": f"Most Sold Items in {year}",
         "data": {
-            "labels": list(sales_dict.keys()),
+            "labels": labels,
             "datasets": [{
-                "label": "Amount (₵)",
-                "backgroundColor": colorPrimary,
-                "borderColor": colorPrimary,
-                "data": list(sales_dict.values()),
+                "label": "Quantity Sold",
+                "backgroundColor": "#4e73df",
+                "borderColor": "#4e73df",
+                "data": quantities,
             }]
-        },
-    })
+        }
+    }
+
+    return JsonResponse(response_data)
+
+def get_least_sold_chart(request, year):
+    # Query to get the most sold items for the specified year
+    most_sold_items = OrderItem.objects.filter(order__created__year=year) \
+        .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('total_quantity')[:10]
+    print(most_sold_items)
+
+    # Prepare data for the chart
+    labels = [item['product__title'] for item in most_sold_items]
+    quantities = [item['total_quantity'] for item in most_sold_items]
+
+    # Prepare JSON response
+    response_data = {
+        "title": f"Most Sold Items in {year}",
+        "data": {
+            "labels": labels,
+            "datasets": [{
+                "label": "Quantity Sold",
+                "backgroundColor": "#4e73df",
+                "borderColor": "#4e73df",
+                "data": quantities,
+            }]
+        }
+    }
+
+    return JsonResponse(response_data)

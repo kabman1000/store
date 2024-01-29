@@ -24,7 +24,8 @@
           <canvas id="salesChart"></canvas>
         </div>
         <div class="col-6">
-          <canvas id="paymentSuccessChart"></canvas>
+          <h3>Least Sold Product</h3>
+          <canvas id="leastSoldChart"></canvas>
         </div>
         <div class="col-6">
           <h3>Spend Per Customer Chart</h3>
@@ -32,6 +33,11 @@
         </div>
         <div class="col-6">
           <h3>Most sold product</h3>
+          <form id="filterForm">
+            <label for="month">Choose a month:</label>
+            <select name="month" id="month"></select>
+            <input type="submit" value="Load" name="_load">
+          </form>
           <canvas id="mostSoldChart"></canvas>
         </div>
       </div>
@@ -50,6 +56,17 @@
         let spendPerCustomerCtx = document.getElementById("spendPerCustomerChart").getContext("2d");
         let spendPerCustomerChart = new Chart(spendPerCustomerCtx, {
           type: "line",
+          options: {
+            responsive: true,
+            title: {
+              display: false,
+              text: ""
+            }
+          }
+        });
+        let leastSoldCtx = document.getElementById("leastSoldChart").getContext("2d");
+        let leastSoldChart = new Chart(leastSoldCtx, {
+          type: "bar",
           options: {
             responsive: true,
             title: {
@@ -128,7 +145,7 @@
     function loadAllCharts(year) {
       loadChart(salesChart, `/orders/chart/sales/${year}/`);
       loadChart(spendPerCustomerChart, `/orders/chart/spend-per-customer/${year}/`);
-      loadChart(paymentSuccessChart, `/orders/chart/payment-success/${year}/`);
+      loadChart(leastSoldChart , `/orders/chart/least-sold/${year}/`);
       loadChart(mostSoldChart, `/orders/chart/most-sold/${year}/`);
     }
   </script>
