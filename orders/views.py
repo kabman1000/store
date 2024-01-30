@@ -87,7 +87,7 @@ def dash(request):
                   'account/user/dashmoard.html', {'order_items':order_items, 'orders':orders})
 
 def customer_rel(request):
-    orders = Order.objects.exclude(full_name__isnull=True).annotate(full_name_count=Count('full_name')).filter(full_name_count=1)
+    orders = Order.objects.exclude(full_name="").exclude(phone="").exclude(full_name="cust").annotate(full_name_count=Count('full_name')).filter(full_name_count=1)
     print(orders)
     return render(request,
                   'account/user/customers.html', {'orders':orders})
