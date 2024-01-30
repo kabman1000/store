@@ -8,3 +8,6 @@ function showComponent(option) {
     }
   }
   
+  document.addEventListener('DOMContentLoaded', function() {
+    showComponent('full');
+});

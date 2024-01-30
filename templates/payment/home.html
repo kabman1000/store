@@ -92,10 +92,17 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <label for="paid" class="form-label">Paid</label>
+                      <label for="paid" class="form-label">Total</label>
                       <input type="text" class="form-control" id="paid" placeholder={{total}} value={{total}}>
                       <div class="invalid-feedback">
                         Please enter your shipping address.
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="paid" class="form-label">Amount Paid</label>
+                      <input type="text" class="form-control" id="amount_paid">
+                      <div class="invalid-feedback">
+                        Please enter amount to be paid
                       </div>
                     </div>
                     
@@ -186,6 +193,6 @@
     var CSRF_TOKEN = '{{ csrf_token }}';
 </script>
 <script src="{% static 'payment/findexo.js' %}" data-rel-js></script>
-<script src="{% static 'payment/bin.js' %}" data-rel-js></script>
+<script src="{% static 'payment/binto.js' %}" data-rel-js></script>
 
 {% endblock %}
