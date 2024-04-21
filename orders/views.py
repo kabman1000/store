@@ -15,7 +15,7 @@ from django.http import JsonResponse
 
 from basket.basket import Basket
 from store.models import Product
-from .models import Order, OrderItem
+from .models import Order, OrderItem, InventoryReport
 from utils.charts import months, colorPrimary, colorSuccess, colorDanger, generate_color_palette, get_year_dict
 
 
@@ -51,7 +51,13 @@ def add(request):
                 print(inv.has_inventory())
                 if inv.has_inventory():
                     inv.remove_items_from_inventory(count=quant)
-                    OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'])
+                    invo = inv.inventory
+                    OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'],inventory=invo)
+                    inventory_report, created = InventoryReport.objects.get_or_create(product=inv)
+                    inventory_report.days_on_hand = inventory_report.calculate_days_on_hand()
+                    inventory_report.inventory_on_hand = inv.inventory
+                    inventory_report.amount_sold = inventory_report.calculate_amount_sold()
+                    inventory_report.save()
                 else:
                     messages.error(request, f'{inv} is out of stock')
 
@@ -105,6 +111,8 @@ def get_sales_chart(request, year):
     purchases = Order.objects.filter(created__year=year)
     grouped_purchases = purchases.annotate(price=F("total_paid")).annotate(month=ExtractMonth("created"))\
         .values("month").annotate(average=Sum("total_paid")).values("month", "average").order_by("month")
+    print(purchases)
+    print(grouped_purchases)
         
     sales_dict = get_year_dict()
 
@@ -165,7 +173,6 @@ def get_most_sold_chart(request, year):
     # Query to get the most sold items for the specified year
     most_sold_items = OrderItem.objects.filter(order__created__year=year) \
         .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:10]
-    print(most_sold_items)
 
     # Prepare data for the chart
     labels = [item['product__title'] for item in most_sold_items]
@@ -191,7 +198,6 @@ def get_least_sold_chart(request, year):
     # Query to get the most sold items for the specified year
     most_sold_items = OrderItem.objects.filter(order__created__year=year) \
         .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('total_quantity')[:10]
-    print(most_sold_items)
 
     # Prepare data for the chart
     labels = [item['product__title'] for item in most_sold_items]

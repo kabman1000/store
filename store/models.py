@@ -34,13 +34,11 @@ class SubCategory(models.Model):
     def __str__(self):
         return self.name
 
-    
-
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null= True)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL, blank=True, null= True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='product_creator')
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True)
     size = models.CharField(max_length=255, null=True)
     author = models.CharField(max_length=255, default='admin')
     code = models.CharField(max_length=255, default='')
@@ -57,6 +55,7 @@ class Product(models.Model):
     inventory = models.PositiveIntegerField(default=0)
     featured = models.BooleanField(default=False)
     can_backorder = models.BooleanField(default=False)
+    total_value = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name_plural = 'Products'
@@ -67,6 +66,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
 
     @property
     def can_order(self):
@@ -87,6 +87,11 @@ class Product(models.Model):
     def has_inventory(self):
         return self.inventory > 0 # True or False
 
+    def save(self, *args, **kwargs):
+        # Calculate total value
+        self.total_value = self.price * self.inventory
+        super().save(*args, **kwargs)
+
     def remove_items_from_inventory(self, count=1, save=True):
         current_inv = self.inventory
         current_inv -= count
@@ -94,3 +99,4 @@ class Product(models.Model):
         if save == True:
             self.save()
         return self.inventory
+

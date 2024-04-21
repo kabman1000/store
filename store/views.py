@@ -13,6 +13,12 @@ def all_products(request):
     print(category)
     return render(request, 'store/landing.html', {'products': products, 'category':category})
 
+def products_page(request):
+    products = Product.products.all().filter(in_stock=True)
+    category = Category.objects.values()
+    print(category)
+    return render(request, 'store/productpage.html', {'products': products, 'category':category})
+
 def get_json_category_data(request):
     qs_val = list(Category.objects.values())
     return JsonResponse({'data':qs_val})

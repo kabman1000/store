@@ -1,0 +1,497 @@
+[
+{
+    "model": "sessions.session",
+    "pk": "1ltcii41jhvkz26lbfbraqd4wgtz1p9d",
+    "fields": {
+        "session_data": "eyJza2V5Ijp7fX0:1qrJIv:luNvLqfMi4_8FufpXUUuG9kl7E2bdN6_xKtLNf8TnOg",
+        "expire_date": "2023-10-27T14:38:17.453Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "1scd46jk5sc9madhyst0ka3yidg56cwg",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qp3Fs:FQSwER0s3neNFWMiKzYRvtspHXWO_FwqxTsGPrseB8I",
+        "expire_date": "2023-10-21T09:05:48.137Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "8m60fsptik5dstqcm8vpysiofq6qwvns",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qrLUc:hqA4_EdVYkc8TK1kb8T823Tvc3c4bW3-YP28s7kG85A",
+        "expire_date": "2023-10-27T16:58:30.525Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "8ve9f5xycysbj87xjethw32xk0z0s37z",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qpreo:TVh9zdcZ0kJztoKtBoi_CLRcte5-S4jKipxnv6TjJeY",
+        "expire_date": "2023-10-23T14:54:54.377Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "cjq3ll0xhnbgsjvoctbm33zv7c35xc31",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qrGff:KGs2IA0W0x-eOWAtB5htLrqou9IpxTK5GJkRpSweFYc",
+        "expire_date": "2023-10-27T11:49:35.978Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "ecc61nlc15hnsu8algqz7yr5rwnpfxi4",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qplcs:qCcLpn2LeKNn0tkDzCe_21vnpdNGB9MZJtfEbhNz1Ls",
+        "expire_date": "2023-10-23T08:28:30.545Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "fj3olml7r3wkh9grs1aenvl2w5pdm0ch",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qqybp:GNrMtpEEVc8G5tAdp0vEO0Ufpn4htqD9GpALMEosPbg",
+        "expire_date": "2023-10-26T16:32:25.824Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "gk6mtug6aabjayzshkksyhn0najgwrr4",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qrIw8:Szv4uGdtdFmlxCiPQqZjjYrkC9G6EcRyJd6Dj_huuUI",
+        "expire_date": "2023-10-27T14:14:44.385Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "lpyec7rwbb5f7ijbfmvohhra2x66y0nh",
+    "fields": {
+        "session_data": ".eJxVjEsOwjAMBe_idRU5f8KSPWeo4jilBdRCPwuEencaiUW7suSZN1-YHvkD5y_IoMp5jV3KcAaprECECt7zhiWuFZg9P-2xK1i6Y8AdAgrXzanjMrf1MuWx7rhIcPhRTI_cF8D32N8GkYZ-HjsSRRF_OonrwPl5-buHQBundlt7FxrtDIcsNVtvdbJGnYxqdPSN4mCJmIgsokYkw5QcyxjQKEveS4L1B12UVFA:1rUZLe:zqzgdDmVgqInyxVvIt9hd7cnf22nxv0n9ZBtRECUSS0",
+        "expire_date": "2024-02-12T21:39:22.260Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "mi8qrxg8nx0vmgd90hva4fturi4jrb8d",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qqsXR:ZENfNddyJJ7ijXGsSnsd6hf1XGQ0BEfNvU6-M8XBhkw",
+        "expire_date": "2023-10-26T10:03:29.096Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "mx6vauy17v2llyh5im0u1oct6l53lyz6",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1rwVxO:xcTZ8EJwQFFr29nasEHjWPBIQOt17c6JLEI-CMAfeoc",
+        "expire_date": "2024-04-29T23:41:50.012Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "n53r3wk750gfxclxad0p8f6rrmw634pk",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1rRvFm:fq8OscpGZ8pmmAtMmy8iG86KPL8cLbMsv7VwSHJJE90",
+        "expire_date": "2024-02-05T14:26:22.096Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "orbnmdoe9m73tslbtinn681njm5lzyyu",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qqUnA:AlHB4mbBhiYt1bEu9JsOdm7E1adjFuQaaLK_sc3UqCU",
+        "expire_date": "2023-10-25T08:42:08.943Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "q2vspox10wpvasp15j41drpk840c1ccq",
+    "fields": {
+        "session_data": "eyJza2V5Ijp7fX0:1raqS6:d-RjrkY37Q7vG0UZfYNkhYmhXXl74OUye7xSaThrWWk",
+        "expire_date": "2024-03-01T05:07:58.590Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "qvkc5o6kt8ki5mwpobxxv49j0kspw49n",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qqT8t:fogvZdB9_92GRHuanh3abbcHB_vlJrcGGqVgA1jvRKg",
+        "expire_date": "2023-10-25T06:56:27.447Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "qz41zgngs6akrckirnf6trz1x4evksr9",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qp2eE:LdaZAx3djtt1_000xq_kqaTCrJaG3vvyhkXRC7psMvE",
+        "expire_date": "2023-10-21T08:26:54.103Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "vw4f8sregjtssbzf1hr2r0gcr72zkhbv",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qLmor:HvjMpzE0fo92oE8q4AeeRKFtsArtJ6MrliDdXjBxpO0",
+        "expire_date": "2023-08-01T15:40:57.650Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "wdb97k5x3penn6znk14e9i7dnsgsmq5q",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qqYFz:4vYRE3_ugOB5n9bPrm1rtzeWDJ7rO9K754z2bCGbMZg",
+        "expire_date": "2023-10-25T12:24:07.818Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "wt2ebx8rmp0w5pg5eiasnm1npavbl1z5",
+    "fields": {
+        "session_data": ".eJxVjMsOgyAUBf-FdUN4U1x27zcQLheKtcFEdNEY_72auGi3Z-bMRnxYl-LXlmY_IOkIJ7ffDUIcUz0BvkJ9TjROdZkHoKdCL9poP2F6Py73L1BCK8fbGpelUegSl6itllErcVciy2CzQKcBEAA0Y5IxUAjRIA-OKaHBWg5HtI3pQ7pt378Mpjrx:1qqZFo:kjGJRRYYGtdMbMkdoo8EmIPZj5VYXE_yGK0TIFQCeKc",
+        "expire_date": "2023-10-25T13:28:00.136Z"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 1,
+    "fields": {
+        "name": "WALL TILES",
+        "slug": "wall-tiles"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 8,
+    "fields": {
+        "name": "FLOOR TILES",
+        "slug": "floor-tiles"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 9,
+    "fields": {
+        "name": "CEMENT",
+        "slug": "cement"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 10,
+    "fields": {
+        "name": "STRIPS",
+        "slug": "strips"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 11,
+    "fields": {
+        "name": "GROUT",
+        "slug": "grout"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 12,
+    "fields": {
+        "name": "WATER CLOSET",
+        "slug": "water-closet"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 13,
+    "fields": {
+        "name": "WATERPROOF CEMENT",
+        "slug": "waterproof-cement"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 14,
+    "fields": {
+        "name": "HAND WASH BASIN",
+        "slug": "hand-wash-basin"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 15,
+    "fields": {
+        "name": "TAP",
+        "slug": "basin-tap"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 16,
+    "fields": {
+        "name": "CHEMICAL",
+        "slug": "chemical"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 17,
+    "fields": {
+        "name": "TUBES",
+        "slug": "tubes"
+    }
+},
+{
+    "model": "store.subcategory",
+    "pk": 2,
+    "fields": {
+        "name": "30 x 60 WALL",
+        "categories": 1
+    }
+},
+{
+    "model": "store.subcategory",
+    "pk": 8,
+    "fields": {
+        "name": "40 X 40 POLISH",
+        "categories": 8
+    }
+},
+{
+    "model": "account.userbase",
+    "fields": {
+        "password": "pbkdf2_sha256$390000$wJSbw7jdAcPhb0mdAnfkEb$PssRTL+ry37pbzKHixN2Te9zginvCiiiqfTujfoErqU=",
+        "last_login": "2024-04-08T05:40:27.124Z",
+        "is_superuser": true,
+        "email": "admin@gmail.com",
+        "user_name": "admin",
+        "first_name": "",
+        "about": "",
+        "phone_number": "",
+        "postcode": "",
+        "address_line_1": "",
+        "address_line_2": "",
+        "town_city": "",
+        "is_active": true,
+        "is_staff": true,
+        "created": "2023-05-23T20:05:54.130Z",
+        "updated": "2023-05-23T20:05:54.130Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 37545308,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-15T23:41:49.653Z",
+        "updated": "2024-04-15T23:41:49.654Z",
+        "total_paid": "405.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 40440288,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-15T23:11:21.120Z",
+        "updated": "2024-04-15T23:11:21.121Z",
+        "total_paid": "270.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 88901213,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-15T22:40:34.405Z",
+        "updated": "2024-04-15T22:40:34.406Z",
+        "total_paid": "520.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.orderitem",
+    "pk": 4540,
+    "fields": {
+        "order": 88901213,
+        "product": 186,
+        "price": "135.00",
+        "quantity": 2
+    }
+},
+{
+    "model": "orders.orderitem",
+    "pk": 4541,
+    "fields": {
+        "order": 88901213,
+        "product": 179,
+        "price": "125.00",
+        "quantity": 2
+    }
+},
+{
+    "model": "orders.orderitem",
+    "pk": 4542,
+    "fields": {
+        "order": 40440288,
+        "product": 186,
+        "price": "135.00",
+        "quantity": 2
+    }
+},
+{
+    "model": "orders.orderitem",
+    "pk": 4543,
+    "fields": {
+        "order": 37545308,
+        "product": 186,
+        "price": "135.00",
+        "quantity": 3
+    }
+},
+{
+    "model": "orders.inventoryreport",
+    "pk": 10,
+    "fields": {
+        "product": 186,
+        "days_on_hand": 163,
+        "inventory_on_hand": 10,
+        "amount_sold": 7
+    }
+},
+{
+    "model": "orders.inventoryreport",
+    "pk": 11,
+    "fields": {
+        "product": 179,
+        "days_on_hand": 192,
+        "inventory_on_hand": 142,
+        "amount_sold": 2
+    }
+},
+{
+    "model": "store.product",
+    "pk": 175,
+    "fields": {
+        "category": 1,
+        "subcategory": 2,
+        "created_by": [
+            "admin@gmail.com"
+        ],
+        "title": "PMCP 36001",
+        "size": "30 X 60",
+        "author": "admin",
+        "code": "PMCP 36001",
+        "description": "",
+        "image": "images/wall.jpg",
+        "slug": "pmcp-36001",
+        "price": "125.00",
+        "in_stock": true,
+        "is_active": true,
+        "created": "2023-09-29T09:48:33.303Z",
+        "updated": "2024-01-18T13:16:37.855Z",
+        "inventory": 77,
+        "featured": false,
+        "can_backorder": false,
+        "total_value": "100000.00"
+    }
+},
+{
+    "model": "store.product",
+    "pk": 179,
+    "fields": {
+        "category": 1,
+        "subcategory": 2,
+        "created_by": [
+            "admin@gmail.com"
+        ],
+        "title": "PMCP 36029",
+        "size": "30 X 60",
+        "author": "admin",
+        "code": "PMCP 36029",
+        "description": "",
+        "image": "images/wall.jpg",
+        "slug": "pmcp-36029",
+        "price": "125.00",
+        "in_stock": true,
+        "is_active": true,
+        "created": "2023-10-06T11:52:58.255Z",
+        "updated": "2024-04-15T22:40:34.749Z",
+        "inventory": 142,
+        "featured": false,
+        "can_backorder": false,
+        "total_value": "17750.00"
+    }
+},
+{
+    "model": "store.product",
+    "pk": 185,
+    "fields": {
+        "category": 8,
+        "subcategory": 8,
+        "created_by": [
+            "admin@gmail.com"
+        ],
+        "title": "YMG 44020",
+        "size": "40 X 40",
+        "author": "admin",
+        "code": "YMG 44020",
+        "description": "",
+        "image": "images/wall.jpg",
+        "slug": "ymg-44020",
+        "price": "135.00",
+        "in_stock": true,
+        "is_active": true,
+        "created": "2023-11-04T08:27:10.073Z",
+        "updated": "2024-04-08T05:43:20.592Z",
+        "inventory": 0,
+        "featured": false,
+        "can_backorder": false,
+        "total_value": "0.00"
+    }
+},
+{
+    "model": "store.product",
+    "pk": 186,
+    "fields": {
+        "category": 8,
+        "subcategory": 8,
+        "created_by": [
+            "admin@gmail.com"
+        ],
+        "title": "YMG 44026",
+        "size": "40 X 40",
+        "author": "admin",
+        "code": "YMG 44026",
+        "description": "",
+        "image": "images/wall.jpg",
+        "slug": "ymg-44026",
+        "price": "135.00",
+        "in_stock": true,
+        "is_active": true,
+        "created": "2023-11-04T08:28:08.119Z",
+        "updated": "2024-04-15T23:41:49.810Z",
+        "inventory": 10,
+        "featured": false,
+        "can_backorder": false,
+        "total_value": "1350.00"
+    }
+}
+]

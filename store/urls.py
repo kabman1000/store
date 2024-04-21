@@ -11,5 +11,7 @@ urlpatterns = [
     path('search/', views.searchBar, name='search'),
     path('category-json/', views.get_json_category_data, name='category-json'),
     path('subcategory-json/<str:cat>/', views.get_json_subcategory_data, name='subcategory-json'),
+    path('landing/', views.all_products, name='landing'),
     path('subcategory/', views.get_subcategory, name='subcategory'),
+    path('products/', views.products_page, name='products_page'),
 ]
