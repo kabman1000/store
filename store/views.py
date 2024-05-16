@@ -10,13 +10,11 @@ def product_all(request):
 def all_products(request):
     products = Product.products.all().filter(in_stock=True)
     category = Category.objects.values()
-    print(category)
     return render(request, 'store/landing.html', {'products': products, 'category':category})
 
 def products_page(request):
     products = Product.products.all().filter(in_stock=True)
     category = Category.objects.values()
-    print(category)
     return render(request, 'store/productpage.html', {'products': products, 'category':category})
 
 def get_json_category_data(request):
@@ -44,17 +42,13 @@ def searchBar(request):
             products = Product.objects.filter(code__icontains=query)
             return render(request, 'store/searchbar.html', {'products': products})
         else:
-            print("No info to show")
-            return request(request, 'store/searchbar.html', {})    
+            return render(request, 'store/searchError.html')   
         
 def get_subcategory(request):
     user_id = request.user.id
     csrf = request.GET.get('csrfmiddlewaretoken')
-    print(csrf)
     cat = request.GET.get('cat')
-    print(cat)
     subcat = request.GET.get('subcat')
     products = Product.objects.filter(in_stock=True).filter(category__name__contains=cat).filter(subcategory__name__contains=subcat)
-    print(products)
     return render(request, 'store/products/subcategory.html', {'products':products})
 

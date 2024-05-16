@@ -81,9 +81,9 @@ DATABASES = {
     },
     'prod': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'suvwwppy',
-        'USER':'suvwwppy',
-        'PASSWORD': 'OSGZjJDMIdP6K2YZjz9r-UfB-c1wF1V_',
+        'NAME': 'utkwpqqo',
+        'USER':'utkwpqqo',
+        'PASSWORD': '4eK3nGlzDWhGGYlZHvJ4te2A_5GnK2gu',
         'HOST': 'rosie.db.elephantsql.com',
         'PORT':'5432'
     }

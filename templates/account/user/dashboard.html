@@ -8,25 +8,8 @@
     <div class="col-12 d-flex justify-content-between">
       <div>Manage your <b>orders</b> and personal details</div>
       <div><a href="{% url "account:edit_details" %}">Change Details</a> | <a href="{% url "orders:sales" %}">See Total Sales</a> 
-      <button id="executeScriptButton">Execute Script</button>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#executeScriptButton").click(function() {
-                $.ajax({
-                    url: "{% url 'orders:execute_script' %}",
-                    type: "GET",
-                    success: function(response) {
-                        alert(response);
-                    },
-                    error: function(xhr, errmsg, err) {
-                        console.log(xhr.status + ": " + xhr.responseText);
-                    }
-                });
-            });
-        });
-    </script>
       </div>
     </div>
     <hr />

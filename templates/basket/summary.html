@@ -59,9 +59,9 @@
                 <a class="text-decoration-none text-reset" href="{{item.product.get_absolute_url}}">
                   <p class="card-text pb-3">{{product.title}}</p>
                 </a>
-                    <label for="quantity">Qty</label>
-                    <input type="text" id="quantity" style="width:50px;height:31px;" value={{item.qty}}>
-                <a type="button" id="update-button" data-index="{{product.id}}" class="update-button text-decoration-none small ps-3">Update</a>
+                <label for="quantity-{{ product.id }}">Qty</label>
+                <input type="number" id="quantity-{{ product.id }}" style="width:50px;height:31px;" value="{{ item.qty }}">
+                <a type="button" data-index="{{ product.id }}" class="update-button text-decoration-none small ps-3">Update</a>
                 <a type="button" id="delete-button" data-index="{{product.id}}" class="delete-button text-decoration-none small">Delete</a>
               </div>
             </div>
@@ -200,12 +200,14 @@
   $(document).on("click", ".update-button", function (e) {
     e.preventDefault();
     var prodid = $(this).data("index");
+    var quantityInput = $("#quantity-" + prodid);
+    var productQty = quantityInput.val();
     $.ajax({
       type: "POST",
       url: '{% url "basket:basket_update" %}',
       data: {
         productid: $(this).data("index"),
-        productqty: $("#quantity").val(),
+        productqty: productQty,
         csrfmiddlewaretoken: "{{csrf_token}}",
         action: "post",
       },

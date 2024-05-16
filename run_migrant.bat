@@ -17,5 +17,5 @@ if not defined _OLD_VIRTUAL_PATH set _OLD_VIRTUAL_PATH=%PATH%
 
 set PATH=%VIRTUAL_ENV%\Scripts;%PATH%
 
-python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e admin.logentry  -e auth.permission --indent 4 > prodt.json
+python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e sessions -e admin.logentry  -e auth.permission --indent 4 > prodt.json
 python manage.py loaddata prodt.json --database=prod

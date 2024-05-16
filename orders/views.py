@@ -21,7 +21,6 @@ from utils.charts import months, colorPrimary, colorSuccess, colorDanger, genera
 
 def payment_confirmation(order_number):
     Order.objects.filter(order_number=order_number).update(billing_status=True)
-    print(order_number)
 
 
 def add(request):
@@ -38,7 +37,6 @@ def add(request):
         if Order.objects.filter(order_number=order_number).exists():
             pass
         else:
-            #print(order_number)
             order = Order.objects.create(user_id=user_id, full_name=full_name, address1=address1, phone=phone,total_paid=baskettotal, order_number=order_number)
             payment_confirmation(order_number)
             order_id = order.pk
@@ -47,8 +45,6 @@ def add(request):
                 quant = item['qty']
                 product_id = item['product'].id
                 inv = Product.objects.get(id=product_id)
-                #print(inv)
-                print(inv.has_inventory())
                 if inv.has_inventory():
                     inv.remove_items_from_inventory(count=quant)
                     invo = inv.inventory
@@ -67,17 +63,15 @@ def add(request):
 
 def user_orders(request):
     user_id = request.user.id
-    orders = Order.objects.filter(user_id=user_id).filter(billing_status=True)
-    print(orders)
+    orders = Order.objects.filter(user_id=user_id).filter(billing_status=True)[:50]
     return orders
 
 @login_required
 def sales(request):
     user_id = request.user.id
-    sales = Order.objects.filter(user_id=user_id).filter(billing_status=True)
+    sales = Order.objects.filter(user_id=user_id).filter(billing_status=True)[:50]
     form = StockHistorySearchForm(request.POST or None)
     total = sum([sale.total_paid for sale in sales])
-    print(total)
     if request.method == 'POST':
         sales = Order.objects.filter(user_id=user_id).filter(billing_status=True).filter(created__range=[form['start_date'].value(),form['end_date'].value()])
         total = sum([sale.total_paid for sale in sales])
@@ -87,14 +81,11 @@ def sales(request):
 def dash(request):
     orders = Order.objects.all()
     order_items = OrderItem.objects.all()
-    print(orders)
-    print(order_items)
     return render(request,
                   'account/user/dashmoard.html', {'order_items':order_items, 'orders':orders})
 
 def customer_rel(request):
     orders = Order.objects.exclude(full_name="").exclude(phone="").exclude(full_name="cust").annotate(full_name_count=Count('full_name')).filter(full_name_count=1)
-    print(orders)
     return render(request,
                   'account/user/customers.html', {'orders':orders})
 
@@ -111,8 +102,6 @@ def get_sales_chart(request, year):
     purchases = Order.objects.filter(created__year=year)
     grouped_purchases = purchases.annotate(price=F("total_paid")).annotate(month=ExtractMonth("created"))\
         .values("month").annotate(average=Sum("total_paid")).values("month", "average").order_by("month")
-    print(purchases)
-    print(grouped_purchases)
         
     sales_dict = get_year_dict()
 

@@ -1,0 +1,499 @@
+[
+{
+    "model": "store.category",
+    "pk": 1,
+    "fields": {
+        "name": "WALL TILES",
+        "slug": "wall-tiles"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 8,
+    "fields": {
+        "name": "FLOOR TILES",
+        "slug": "floor-tiles"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 9,
+    "fields": {
+        "name": "CEMENT",
+        "slug": "cement"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 10,
+    "fields": {
+        "name": "STRIPS",
+        "slug": "strips"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 11,
+    "fields": {
+        "name": "GROUT",
+        "slug": "grout"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 12,
+    "fields": {
+        "name": "WATER CLOSET",
+        "slug": "water-closet"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 13,
+    "fields": {
+        "name": "WATERPROOF CEMENT",
+        "slug": "waterproof-cement"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 14,
+    "fields": {
+        "name": "HAND WASH BASIN",
+        "slug": "hand-wash-basin"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 15,
+    "fields": {
+        "name": "TAP",
+        "slug": "basin-tap"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 16,
+    "fields": {
+        "name": "CHEMICAL",
+        "slug": "chemical"
+    }
+},
+{
+    "model": "store.category",
+    "pk": 17,
+    "fields": {
+        "name": "TUBES",
+        "slug": "tubes"
+    }
+},
+{
+    "model": "store.subcategory",
+    "pk": 2,
+    "fields": {
+        "name": "30 x 60 WALL",
+        "categories": 1
+    }
+},
+{
+    "model": "store.subcategory",
+    "pk": 8,
+    "fields": {
+        "name": "40 X 40 POLISH",
+        "categories": 8
+    }
+},
+{
+    "model": "account.userbase",
+    "fields": {
+        "password": "pbkdf2_sha256$390000$wJSbw7jdAcPhb0mdAnfkEb$PssRTL+ry37pbzKHixN2Te9zginvCiiiqfTujfoErqU=",
+        "last_login": "2024-04-08T05:40:27.124Z",
+        "is_superuser": true,
+        "email": "admin@gmail.com",
+        "user_name": "admin",
+        "first_name": "",
+        "about": "",
+        "phone_number": "",
+        "postcode": "",
+        "address_line_1": "",
+        "address_line_2": "",
+        "town_city": "",
+        "is_active": true,
+        "is_staff": true,
+        "created": "2023-05-23T20:05:54.130Z",
+        "updated": "2023-05-23T20:05:54.130Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 5163620,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-20T09:14:34.893Z",
+        "updated": "2024-04-20T09:14:34.893Z",
+        "total_paid": "1250.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 10870909,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-25T18:14:47.492Z",
+        "updated": "2024-04-25T18:14:47.492Z",
+        "total_paid": "6250.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 25894512,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-25T18:14:09.272Z",
+        "updated": "2024-04-25T18:14:09.272Z",
+        "total_paid": "3250.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 31029075,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-20T16:31:38.051Z",
+        "updated": "2024-04-20T16:31:38.051Z",
+        "total_paid": "270.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 34040148,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-20T16:27:34.943Z",
+        "updated": "2024-04-20T16:27:34.943Z",
+        "total_paid": "250.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 34991487,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-20T16:33:10.953Z",
+        "updated": "2024-04-20T16:33:10.953Z",
+        "total_paid": "675.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 36928668,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-20T16:19:30.096Z",
+        "updated": "2024-04-20T16:19:30.097Z",
+        "total_paid": "270.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 61467156,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-21T08:13:51.006Z",
+        "updated": "2024-04-21T08:13:51.006Z",
+        "total_paid": "675.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 61540978,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-20T16:28:44.634Z",
+        "updated": "2024-04-20T16:28:44.634Z",
+        "total_paid": "250.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 62413333,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-20T16:25:51.735Z",
+        "updated": "2024-04-20T16:25:51.735Z",
+        "total_paid": "250.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.order",
+    "pk": 62714182,
+    "fields": {
+        "user": [
+            "admin@gmail.com"
+        ],
+        "full_name": "",
+        "address1": "",
+        "phone": "",
+        "created": "2024-04-20T09:13:40.534Z",
+        "updated": "2024-04-20T09:13:40.534Z",
+        "total_paid": "675.00",
+        "billing_status": true
+    }
+},
+{
+    "model": "orders.orderitem",
+    "pk": 4546,
+    "fields": {
+        "order": 36928668,
+        "product": "YMG 44026",
+        "price": "135.00",
+        "quantity": 2,
+        "inventory": 5
+    }
+},
+{
+    "model": "orders.orderitem",
+    "pk": 4547,
+    "fields": {
+        "order": 31029075,
+        "product": "YMG 44026",
+        "price": "135.00",
+        "quantity": 2,
+        "inventory": 3
+    }
+},
+{
+    "model": "orders.orderitem",
+    "pk": 4548,
+    "fields": {
+        "order": 34991487,
+        "product": "YMG 44026",
+        "price": "135.00",
+        "quantity": 5,
+        "inventory": 45
+    }
+},
+{
+    "model": "orders.orderitem",
+    "pk": 4549,
+    "fields": {
+        "order": 61467156,
+        "product": "YMG 44026",
+        "price": "135.00",
+        "quantity": 5,
+        "inventory": 40
+    }
+},
+{
+    "model": "orders.orderitem",
+    "pk": 4550,
+    "fields": {
+        "order": 25894512,
+        "product": "PMCP 36029",
+        "price": "125.00",
+        "quantity": 26,
+        "inventory": 100
+    }
+},
+{
+    "model": "orders.orderitem",
+    "pk": 4551,
+    "fields": {
+        "order": 10870909,
+        "product": "PMCP 36029",
+        "price": "125.00",
+        "quantity": 50,
+        "inventory": 50
+    }
+},
+{
+    "model": "orders.inventoryreport",
+    "pk": 10,
+    "fields": {
+        "product": 186,
+        "days_on_hand": 168,
+        "inventory_on_hand": 40,
+        "amount_sold": 14
+    }
+},
+{
+    "model": "orders.inventoryreport",
+    "pk": 12,
+    "fields": {
+        "product": 179,
+        "days_on_hand": 202,
+        "inventory_on_hand": 50,
+        "amount_sold": 76
+    }
+},
+{
+    "model": "store.product",
+    "pk": 175,
+    "fields": {
+        "category": 1,
+        "subcategory": 2,
+        "created_by": [
+            "admin@gmail.com"
+        ],
+        "title": "PMCP 36001",
+        "size": "30 X 60",
+        "author": "admin",
+        "code": "PMCP 36001",
+        "description": "",
+        "image": "images/wall.jpg",
+        "slug": "pmcp-36001",
+        "price": "125.00",
+        "in_stock": true,
+        "is_active": true,
+        "created": "2023-09-29T09:48:33.303Z",
+        "updated": "2024-01-18T13:16:37.855Z",
+        "inventory": 77,
+        "featured": false,
+        "can_backorder": false,
+        "total_value": "100000.00"
+    }
+},
+{
+    "model": "store.product",
+    "pk": 179,
+    "fields": {
+        "category": 1,
+        "subcategory": 2,
+        "created_by": [
+            "admin@gmail.com"
+        ],
+        "title": "PMCP 36029",
+        "size": "30 X 60",
+        "author": "admin",
+        "code": "PMCP 36029",
+        "description": "",
+        "image": "images/wall.jpg",
+        "slug": "pmcp-36029",
+        "price": "125.00",
+        "in_stock": true,
+        "is_active": true,
+        "created": "2023-10-06T11:52:58.255Z",
+        "updated": "2024-04-25T18:14:47.506Z",
+        "inventory": 50,
+        "featured": false,
+        "can_backorder": false,
+        "total_value": "6250.00"
+    }
+},
+{
+    "model": "store.product",
+    "pk": 185,
+    "fields": {
+        "category": 8,
+        "subcategory": 8,
+        "created_by": [
+            "admin@gmail.com"
+        ],
+        "title": "YMG 44020",
+        "size": "40 X 40",
+        "author": "admin",
+        "code": "YMG 44020",
+        "description": "",
+        "image": "images/wall.jpg",
+        "slug": "ymg-44020",
+        "price": "135.00",
+        "in_stock": true,
+        "is_active": true,
+        "created": "2023-11-04T08:27:10.073Z",
+        "updated": "2024-04-08T05:43:20.592Z",
+        "inventory": 0,
+        "featured": false,
+        "can_backorder": false,
+        "total_value": "0.00"
+    }
+},
+{
+    "model": "store.product",
+    "pk": 186,
+    "fields": {
+        "category": 8,
+        "subcategory": 8,
+        "created_by": [
+            "admin@gmail.com"
+        ],
+        "title": "YMG 44026",
+        "size": "40 X 40",
+        "author": "admin",
+        "code": "YMG 44026",
+        "description": "",
+        "image": "images/wall.jpg",
+        "slug": "ymg-44026",
+        "price": "135.00",
+        "in_stock": true,
+        "is_active": true,
+        "created": "2023-11-04T08:28:08.119Z",
+        "updated": "2024-04-21T08:13:51.177Z",
+        "inventory": 40,
+        "featured": false,
+        "can_backorder": false,
+        "total_value": "5400.00"
+    }
+}
+]

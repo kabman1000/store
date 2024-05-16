@@ -8,13 +8,11 @@ from .basket import Basket
 
 def basket_summary(request):
     basket = Basket(request)
-    print(basket.basket)
     return render(request, 'basket/summary.html', {'basket': basket})
 
 
 def basket_add(request):
     basket = Basket(request)
-    print(basket.basket)
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('productid'))
         product_qty = int(request.POST.get('productqty'))
@@ -43,8 +41,6 @@ def basket_update(request):
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('productid'))
         product_qty = int(request.POST.get('productqty'))
-        print(product_id)
-        print(product_qty)
         basket.update(product=product_id, qty=product_qty)
 
         basketqty = basket.__len__()

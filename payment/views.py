@@ -26,7 +26,6 @@ def order_placed(request):
     order_db = Order.objects.first()
     basket = Basket(request)
     id = order_db.order_number
-    #print(basket.basket)
     basket.clear()
     return render(request, 'payment/order_placed.html', {'id':id})
 
