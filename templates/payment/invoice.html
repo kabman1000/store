@@ -186,8 +186,17 @@ footer {
                   <td></td>
                   <td>TOTAL: </td>
                   <td>{{amount}}</td>
-                  
               </tr>
+              {% if order.part_paid < amount %}
+              <tr>
+                <td>AMOUNT PAID</td>
+                <td>{{ order.part_paid }}</td>
+              </tr>
+              <tr>
+                <td>BALANCE TO BE PAID</td>
+                <td>{{ order.balance }}</td>
+              </tr>
+              {% endif %}
           </tbody>
       </table>
 

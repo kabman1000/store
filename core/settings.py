@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'payment',
     'orders',
     'mptt',
+    'rangefilter',
 ]
 
 MIDDLEWARE = [

@@ -66,6 +66,21 @@
 
 
 </main>
+<script>
+  document.querySelectorAll('.card-body').forEach(cardBody => {
+    cardBody.addEventListener('click', function(event) {
+      // Prevent the click event if it originates from an <a> tag
+      if (event.target.tagName.toLowerCase() === 'a') {
+        return;
+      }
+      
+      const link = this.querySelector('a');
+      if (link) {
+        window.location.href = link.href;
+      }
+    });
+  });
+</script>
 
 <script src="{% static 'store/main.js' %}" data-rel-js></script>
 <script src="{% static 'store/semantic.js' %}" data-rel-js></script>

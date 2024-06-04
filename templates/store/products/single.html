@@ -64,6 +64,7 @@
     </div>
   </div>
 </main>
+<script src="{% static 'core/js/jquery-3.6.4.min.js'%}"></script>
 
 <script>
     $(document).on('click', '#add-button', function (e) {
@@ -80,7 +81,10 @@
             success: function (json) {
                document.getElementById("basket-qty").innerHTML = json.qty
             },
-            error: function (xhr, errmsg, err) {}
+            error: function (xhr) {
+                const errorMessage = xhr.responseJSON.error;
+                alert(errorMessage);
+            }
         });
     })
 </script>

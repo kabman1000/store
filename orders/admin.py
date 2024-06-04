@@ -1,10 +1,80 @@
 from django.contrib import admin
-
-from .models import Order, OrderItem, InventoryReport
+import csv
+from django.http import HttpResponse
+from .models import Order, OrderItem, InventoryReport, SalesReport
+from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
 
 admin.site.register(Order)
 admin.site.register(OrderItem)
 
 @admin.register(InventoryReport)
 class InventoryAdmin(admin.ModelAdmin):
-    list_display = ['product', 'days_on_hand','inventory_on_hand','amount_sold']
+    actions = ["export_as_csv"]
+
+    def export_as_csv(self, request, queryset):
+
+        meta = self.model._meta
+        field_names = [field.name for field in meta.fields]
+
+        earliest_date = queryset.order_by('created').values_list('created', flat=True).first()
+        if earliest_date:
+            formatted_date = earliest_date.strftime('%Y-%m-%d')
+        else:
+            # Fallback to the current date if no date is found
+            formatted_date = datetime.now().strftime('%Y-%m-%d')
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename=inventory_{formatted_date}.csv'
+        
+        writer = csv.writer(response)
+
+        writer.writerow(field_names)
+        for obj in queryset:
+            row = writer.writerow([getattr(obj, field) for field in field_names])
+
+        return response
+
+    export_as_csv.short_description = "Export Selected"
+    list_display = ['product', 'days_on_hand','inventory_on_hand','quantity_sold','created']
+
+
+@admin.register(SalesReport)
+class SalesAdmin(admin.ModelAdmin):
+    actions = ["export_as_csv"]
+
+    def export_as_csv(self, request, queryset):
+        meta = self.model._meta
+        field_names = [field.name for field in meta.fields if field.name not in ["date_created", "order"]]
+
+        earliest_date = queryset.order_by('date_created').values_list('date_created', flat=True).first()
+        latest_date = queryset.order_by('-date_created').values_list('date_created', flat=True).first()
+
+        if earliest_date and latest_date:
+            formatted_earliest_date = earliest_date.strftime('%Y-%m-%d')
+            formatted_latest_date = latest_date.strftime('%Y-%m-%d')
+            date_range = f"{formatted_earliest_date} to {formatted_latest_date}"
+            formatted_date = formatted_latest_date  # Use the latest date for the filename
+        else:
+            # Fallback to the current date if no date is found
+            formatted_date = datetime.now().strftime('%Y-%m-%d')
+            date_range = f"Date: {formatted_date}"
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename=sales_{formatted_date}.csv'
+        
+        writer = csv.writer(response)
+
+        # Write the date range at the top of the CSV file
+        writer.writerow([f"Sales Report for: {date_range}"])
+        writer.writerow([])  # Add an empty row for spacing
+        writer.writerow(field_names)  # Write the header row
+
+        for obj in queryset:
+            row = [getattr(obj, field) for field in field_names]
+            writer.writerow(row)
+
+        return response
+
+    export_as_csv.short_description = "Export Selected"
+    list_filter = (('date_created', DateRangeFilter), ('date_created', DateTimeRangeFilter))
+    list_display = ['product','total_sales','total_units_sold','number_of_transactions','average_transaction_value','date_created']

@@ -15,7 +15,7 @@ from django.http import JsonResponse
 
 from basket.basket import Basket
 from store.models import Product
-from .models import Order, OrderItem, InventoryReport
+from .models import Order, OrderItem, InventoryReport, SalesReport
 from utils.charts import months, colorPrimary, colorSuccess, colorDanger, generate_color_palette, get_year_dict
 
 
@@ -33,11 +33,12 @@ def add(request):
         full_name = request.POST.get('cusName')
         address1 = request.POST.get('add')
         phone = request.POST.get('phone_num')
+        part_paid = request.POST.get('part_paid')
         # Check if order exists
         if Order.objects.filter(order_number=order_number).exists():
             pass
         else:
-            order = Order.objects.create(user_id=user_id, full_name=full_name, address1=address1, phone=phone,total_paid=baskettotal, order_number=order_number)
+            order = Order.objects.create(user_id=user_id, full_name=full_name, address1=address1, phone=phone,total_paid=baskettotal, order_number=order_number, part_paid=part_paid)
             payment_confirmation(order_number)
             order_id = order.pk
             
@@ -52,10 +53,19 @@ def add(request):
                     inventory_report, created = InventoryReport.objects.get_or_create(product=inv)
                     inventory_report.days_on_hand = inventory_report.calculate_days_on_hand()
                     inventory_report.inventory_on_hand = inv.inventory
+                    inventory_report.update_inventory_on_hand = invo
                     inventory_report.amount_sold = inventory_report.calculate_amount_sold()
                     inventory_report.save()
+
+                    sales_report, created = SalesReport.objects.get_or_create(product=inv)
+                    sales_report.total_sales = sales_report.calculate_total_sales()
+                    sales_report.total_units_sold = sales_report.calculate_total_units_sold()
+                    sales_report.number_of_transactions = sales_report.calculate_number_of_transactions()
+                    
+                    sales_report.average_transaction_value = sales_report.calculate_average_transaction_value()
+                    sales_report.save()
                 else:
-                    messages.error(request, f'{inv} is out of stock')
+                    messages.error(request, f'{inv.name} is out of stock')
 
         response = JsonResponse({'success': 'Return something'})
         return response

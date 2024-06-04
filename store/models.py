@@ -99,4 +99,3 @@ class Product(models.Model):
         if save == True:
             self.save()
         return self.inventory
-

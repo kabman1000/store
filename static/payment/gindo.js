@@ -32,6 +32,7 @@ var custName = document.getElementById("custName").value;
 var phone = document.getElementById("phone").value;
 var custAdd = document.getElementById("custAdd").value;
 var paid = document.getElementById("paid").value;
+var part_paid = document.getElementById("part_paid").value;
 
 
   $.ajax({
@@ -46,6 +47,7 @@ var paid = document.getElementById("paid").value;
       phone_num: phone,
       add : custAdd,
       paid : paid,
+      part_paid : part_paid,
     },
     success: function (json) {
       console.log(json.success)

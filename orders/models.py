@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from store.models import Product
+from django.db.models import F, Sum
 
 
 class Order(models.Model):
@@ -12,15 +13,28 @@ class Order(models.Model):
     phone = models.CharField(max_length=100)
     created = models.DateTimeField(default=timezone.now)
     updated = models.DateTimeField(auto_now=True)
+    part_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     total_paid = models.DecimalField(max_digits=10, decimal_places=2)
     billing_status = models.BooleanField(default=False)
     order_number = models.AutoField(primary_key=True)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     class Meta:
         ordering = ('-created',)
     
     def __str__(self):
         return str(self.created)
+
+    def save(self, *args, **kwargs):
+        # Calculate the balance before saving the order
+        if not isinstance(self.part_paid, Decimal):
+            self.part_paid = Decimal(self.part_paid)
+        if not isinstance(self.total_paid, Decimal):
+            self.total_paid = Decimal(self.total_paid)
+        
+        # Calculate the balance before saving the order
+        self.balance = self.total_paid - self.part_paid
+        super().save(*args, **kwargs)
 
         
 
@@ -47,12 +61,49 @@ class OrderItem(models.Model):
 
 
 
+class SalesReport(models.Model):
+    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+    total_sales = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
+    total_units_sold = models.PositiveIntegerField(default=0)
+    number_of_transactions = models.PositiveIntegerField(default=0)
+    average_transaction_value = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='sales_reports', null=True)
+    date_created = models.DateTimeField(default=timezone.now)
+
+    def calculate_total_sales(self):
+        total_sales = self.product.order_items.aggregate(total=models.Sum(F('price') * F('quantity')))['total']
+        return total_sales if total_sales else Decimal('0.00')
+
+    def calculate_total_units_sold(self):
+        total_units_sold = self.product.order_items.aggregate(total=models.Sum('quantity'))['total']
+        return total_units_sold if total_units_sold else 0
+
+    def calculate_number_of_transactions(self):
+        number_of_transactions = self.product.order_items.values('order_id').distinct().count()
+        return number_of_transactions
+
+    def calculate_average_transaction_value(self):
+        if self.number_of_transactions > 0:
+            return self.total_sales / Decimal(self.number_of_transactions)
+        return Decimal('0.00')
+
+    def save(self, *args, **kwargs):
+        self.total_sales = self.calculate_total_sales()
+        self.total_units_sold = self.calculate_total_units_sold()
+        self.number_of_transactions = self.calculate_number_of_transactions()
+        self.average_transaction_value = self.calculate_average_transaction_value()
+        super().save(*args, **kwargs)
+
+
+
+
 
 class InventoryReport(models.Model):
     product = models.OneToOneField(Product, on_delete=models.CASCADE)
     days_on_hand = models.PositiveIntegerField(default=0)
     inventory_on_hand = models.PositiveIntegerField(default=0)
-    amount_sold = models.PositiveIntegerField(default=0)
+    quantity_sold = models.PositiveIntegerField(default=0)
+    created = models.DateTimeField(default=timezone.now)
 
     def calculate_days_on_hand(self):
     # Calculate days on hand based on last order date
@@ -73,7 +124,7 @@ class InventoryReport(models.Model):
     def save(self, *args, **kwargs):
         self.days_on_hand = self.calculate_days_on_hand()
         self.inventory_on_hand = self.calculate_inventory_on_hand()
-        self.amount_sold = self.calculate_amount_sold()
+        self.quantity_sold = self.calculate_amount_sold()
         super().save(*args, **kwargs)
 
     def __str__(self):
