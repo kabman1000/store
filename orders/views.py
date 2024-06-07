@@ -5,7 +5,7 @@ import sys
 from django.contrib import messages
 # for generating pdf invoice
 from django.utils import timezone
-import datetime
+from datetime import datetime
 from django.shortcuts import get_object_or_404
 from .forms import StockHistorySearchForm
 from django.contrib.auth.decorators import login_required
@@ -50,20 +50,41 @@ def add(request):
                     inv.remove_items_from_inventory(count=quant)
                     invo = inv.inventory
                     OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'],inventory=invo)
-                    inventory_report, created = InventoryReport.objects.get_or_create(product=inv)
-                    inventory_report.days_on_hand = inventory_report.calculate_days_on_hand()
-                    inventory_report.inventory_on_hand = inv.inventory
-                    inventory_report.update_inventory_on_hand = invo
-                    inventory_report.amount_sold = inventory_report.calculate_amount_sold()
-                    inventory_report.save()
+                    order_date = datetime.now().date()
 
-                    sales_report, created = SalesReport.objects.get_or_create(product=inv)
-                    sales_report.total_sales = sales_report.calculate_total_sales()
-                    sales_report.total_units_sold = sales_report.calculate_total_units_sold()
-                    sales_report.number_of_transactions = sales_report.calculate_number_of_transactions()
-                    
-                    sales_report.average_transaction_value = sales_report.calculate_average_transaction_value()
-                    sales_report.save()
+                    # Retrieve inventory reports for the current product and date
+                    inventory_reports = InventoryReport.objects.filter(product=inv, created__date=order_date)
+
+                    if not inventory_reports.exists():
+                        # If no inventory reports exist for the current date, create a new one
+                        inventory_report = InventoryReport.objects.create(product=inv, created=timezone.now())
+                        inventory_reports = [inventory_report]
+
+                    # Update all matching inventory reports
+                    for inventory_report in inventory_reports:
+                        inventory_report.days_on_hand = inventory_report.calculate_days_on_hand()
+                        inventory_report.inventory_on_hand = inv.inventory
+                        inventory_report.update_inventory_on_hand = inv.inventory  # Assuming this is the correct field to update
+                        inventory_report.amount_sold = inventory_report.calculate_amount_sold()
+                        inventory_report.save()
+
+                    order_date = datetime.now().date()
+
+# Retrieve sales reports for the current product and date
+                    sales_reports = SalesReport.objects.filter(product=inv, date_created__date=order_date)
+
+                    if not sales_reports.exists():
+                        # If no sales reports exist for the current date, create a new one
+                        sales_report = SalesReport.objects.create(product=inv, date_created=timezone.now())
+                        sales_reports = [sales_report]
+
+                    # Update all matching sales reports
+                    for sales_report in sales_reports:
+                        sales_report.total_sales = sales_report.calculate_total_sales()
+                        sales_report.total_units_sold = sales_report.calculate_total_units_sold()
+                        sales_report.number_of_transactions = sales_report.calculate_number_of_transactions()
+                        sales_report.average_transaction_value = sales_report.calculate_average_transaction_value()
+                        sales_report.save()
                 else:
                     messages.error(request, f'{inv.name} is out of stock')
 

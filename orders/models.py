@@ -62,7 +62,7 @@ class OrderItem(models.Model):
 
 
 class SalesReport(models.Model):
-    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     total_sales = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal('0.00'))
     total_units_sold = models.PositiveIntegerField(default=0)
     number_of_transactions = models.PositiveIntegerField(default=0)
@@ -71,15 +71,15 @@ class SalesReport(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
 
     def calculate_total_sales(self):
-        total_sales = self.product.order_items.aggregate(total=models.Sum(F('price') * F('quantity')))['total']
+        total_sales = self.product.order_items.filter(order__created__date=self.date_created.date()).aggregate(total=Sum(F('price') * F('quantity')))['total']
         return total_sales if total_sales else Decimal('0.00')
 
     def calculate_total_units_sold(self):
-        total_units_sold = self.product.order_items.aggregate(total=models.Sum('quantity'))['total']
+        total_units_sold = self.product.order_items.filter(order__created__date=self.date_created.date()).aggregate(total=Sum('quantity'))['total']
         return total_units_sold if total_units_sold else 0
 
     def calculate_number_of_transactions(self):
-        number_of_transactions = self.product.order_items.values('order_id').distinct().count()
+        number_of_transactions = self.product.order_items.filter(order__created__date=self.date_created.date()).values('order_id').distinct().count()
         return number_of_transactions
 
     def calculate_average_transaction_value(self):
@@ -99,7 +99,7 @@ class SalesReport(models.Model):
 
 
 class InventoryReport(models.Model):
-    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     days_on_hand = models.PositiveIntegerField(default=0)
     inventory_on_hand = models.PositiveIntegerField(default=0)
     quantity_sold = models.PositiveIntegerField(default=0)
@@ -118,8 +118,8 @@ class InventoryReport(models.Model):
 
     def calculate_amount_sold(self):
         # Calculate total amount sold
-        total_amount_sold = self.product.order_items.aggregate(total=models.Sum('quantity'))['total']
-        return total_amount_sold if total_amount_sold else 0
+        total_quantity_sold = self.product.order_items.filter(order__created__date=self.created.date()).aggregate(total=Sum('quantity'))['total']
+        return total_quantity_sold if total_quantity_sold else 0
 
     def save(self, *args, **kwargs):
         self.days_on_hand = self.calculate_days_on_hand()

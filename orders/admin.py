@@ -12,29 +12,40 @@ class InventoryAdmin(admin.ModelAdmin):
     actions = ["export_as_csv"]
 
     def export_as_csv(self, request, queryset):
-
         meta = self.model._meta
-        field_names = [field.name for field in meta.fields]
+        field_names = [field.name for field in meta.fields if field.name not in ["created","id"]]
 
         earliest_date = queryset.order_by('created').values_list('created', flat=True).first()
-        if earliest_date:
-            formatted_date = earliest_date.strftime('%Y-%m-%d')
+        latest_date = queryset.order_by('-created').values_list('created', flat=True).first()
+
+        if earliest_date and latest_date:
+            formatted_earliest_date = earliest_date.strftime('%Y-%m-%d')
+            formatted_latest_date = latest_date.strftime('%Y-%m-%d')
+            date_range = f"{formatted_earliest_date} to {formatted_latest_date}"
+            formatted_date = formatted_latest_date  # Use the latest date for the filename
         else:
             # Fallback to the current date if no date is found
             formatted_date = datetime.now().strftime('%Y-%m-%d')
+            date_range = f"Date: {formatted_date}"
 
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = f'attachment; filename=inventory_{formatted_date}.csv'
         
         writer = csv.writer(response)
 
-        writer.writerow(field_names)
+        # Write the date range at the top of the CSV file
+        writer.writerow([f"Inventory Report for: {date_range}"])
+        writer.writerow([])  # Add an empty row for spacing
+        writer.writerow(field_names)  # Write the header row
+
         for obj in queryset:
-            row = writer.writerow([getattr(obj, field) for field in field_names])
+            row = [getattr(obj, field) for field in field_names]
+            writer.writerow(row)
 
         return response
 
     export_as_csv.short_description = "Export Selected"
+    list_filter = (('created', DateRangeFilter), ('created', DateTimeRangeFilter))
     list_display = ['product', 'days_on_hand','inventory_on_hand','quantity_sold','created']
 
 
@@ -44,7 +55,7 @@ class SalesAdmin(admin.ModelAdmin):
 
     def export_as_csv(self, request, queryset):
         meta = self.model._meta
-        field_names = [field.name for field in meta.fields if field.name not in ["date_created", "order"]]
+        field_names = [field.name for field in meta.fields if field.name not in ["date_created", "order","id"]]
 
         earliest_date = queryset.order_by('date_created').values_list('date_created', flat=True).first()
         latest_date = queryset.order_by('-date_created').values_list('date_created', flat=True).first()
