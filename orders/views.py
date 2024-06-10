@@ -5,7 +5,7 @@ import sys
 from django.contrib import messages
 # for generating pdf invoice
 from django.utils import timezone
-import datetime
+from datetime import datetime
 from django.shortcuts import get_object_or_404
 from .forms import StockHistorySearchForm
 from django.contrib.auth.decorators import login_required
@@ -50,20 +50,38 @@ def add(request):
                     inv.remove_items_from_inventory(count=quant)
                     invo = inv.inventory
                     OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'],inventory=invo)
-                    inventory_report, created = InventoryReport.objects.get_or_create(product=inv)
-                    inventory_report.days_on_hand = inventory_report.calculate_days_on_hand()
-                    inventory_report.inventory_on_hand = inv.inventory
-                    inventory_report.update_inventory_on_hand = invo
-                    inventory_report.amount_sold = inventory_report.calculate_amount_sold()
-                    inventory_report.save()
+                    order_date = datetime.now().date()
 
-                    sales_report, created = SalesReport.objects.get_or_create(product=inv)
-                    sales_report.total_sales = sales_report.calculate_total_sales()
-                    sales_report.total_units_sold = sales_report.calculate_total_units_sold()
-                    sales_report.number_of_transactions = sales_report.calculate_number_of_transactions()
+                    inventory_reports = InventoryReport.objects.filter(product=inv ,created__date = order_date)
+
+                    if not inventory_reports.exists():
+                        inventory_report = InventoryReport.objects.create(product=inv, created=timezone.now())
+                        inventory_reports = [inventory_report]
+
+                    for inventory_report in inventory_reports:
+                        inventory_report.days_on_hand = inventory_report.calculate_days_on_hand()
+                        inventory_report.inventory_on_hand = inv.inventory
+                        inventory_report.amount_sold = inventory_report.calculate_amount_sold()
+                        inventory_report.save()
+
                     
-                    sales_report.average_transaction_value = sales_report.calculate_average_transaction_value()
-                    sales_report.save()
+                    order_date = datetime.now().date()
+
+                    # Retrieve sales reports for the current product and date
+                    sales_reports = SalesReport.objects.filter(product=inv, date_created__date=order_date)
+
+                    if not sales_reports.exists():
+                        # If no sales reports exist for the current date, create a new one
+                        sales_report = SalesReport.objects.create(product=inv, date_created=timezone.now())
+                        sales_reports = [sales_report]
+
+                    # Update all matching sales reports
+                    for sales_report in sales_reports:
+                        sales_report.total_sales = sales_report.calculate_total_sales()
+                        sales_report.total_units_sold = sales_report.calculate_total_units_sold()
+                        sales_report.number_of_transactions = sales_report.calculate_number_of_transactions()
+                        sales_report.average_transaction_value = sales_report.calculate_average_transaction_value()
+                        sales_report.save()
                 else:
                     messages.error(request, f'{inv.name} is out of stock')
 
@@ -73,20 +91,22 @@ def add(request):
 
 def user_orders(request):
     user_id = request.user.id
-    orders = Order.objects.filter(user_id=user_id).filter(billing_status=True)[:50]
+    orders = Order.objects.filter(user_id=user_id).filter(billing_status=True)[:100]
     return orders
 
 @login_required
 def sales(request):
     user_id = request.user.id
-    sales = Order.objects.filter(user_id=user_id).filter(billing_status=True)[:50]
+    sales = Order.objects.filter(user_id=user_id).filter(billing_status=True)[:100]
     form = StockHistorySearchForm(request.POST or None)
     total = sum([sale.total_paid for sale in sales])
+    part_total= sum(sale.part_paid for sale in sales if sale.part_paid != sale.total_paid)
     if request.method == 'POST':
         sales = Order.objects.filter(user_id=user_id).filter(billing_status=True).filter(created__range=[form['start_date'].value(),form['end_date'].value()])
         total = sum([sale.total_paid for sale in sales])
+        part_total= sum(sale.part_paid for sale in sales if sale.part_paid != sale.total_paid)
     return render(request,
-                  'account/user/sales.html', {'sales':sales, 'form':form, 'total':total})
+                  'account/user/sales.html', {'sales':sales, 'form':form, 'total':total, 'part_total':part_total})
 
 def dash(request):
     orders = Order.objects.all()
@@ -109,6 +129,8 @@ def get_filter_options(request):
     })
 
 def get_sales_chart(request, year):
+    fixed_value = float(request.GET.get('fixed_value', 800000))
+
     purchases = Order.objects.filter(created__year=year)
     grouped_purchases = purchases.annotate(price=F("total_paid")).annotate(month=ExtractMonth("created"))\
         .values("month").annotate(average=Sum("total_paid")).values("month", "average").order_by("month")
@@ -117,8 +139,6 @@ def get_sales_chart(request, year):
 
     for group in grouped_purchases:
         sales_dict[months[group["month"]-1]] = round(group["average"], 2)
-
-    fixed_value = 800000
 
     return JsonResponse({
         "title": f"Sales in {year}",
@@ -171,7 +191,7 @@ def statistics_view(request):
 def get_most_sold_chart(request, year):
     # Query to get the most sold items for the specified year
     most_sold_items = OrderItem.objects.filter(order__created__year=year) \
-        .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:10]
+        .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:15]
 
     # Prepare data for the chart
     labels = [item['product__title'] for item in most_sold_items]
@@ -196,7 +216,7 @@ def get_most_sold_chart(request, year):
 def get_least_sold_chart(request, year):
     # Query to get the most sold items for the specified year
     most_sold_items = OrderItem.objects.filter(order__created__year=year) \
-        .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('total_quantity')[:10]
+        .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('total_quantity')[:15]
 
     # Prepare data for the chart
     labels = [item['product__title'] for item in most_sold_items]

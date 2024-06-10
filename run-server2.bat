@@ -1,5 +1,5 @@
-cd C:\Users\YEN\y-comm
-set VIRTUAL_ENV=C:\Users\YEN\y-comm\venv
+cd C:\Users\user\Desktop\store
+set VIRTUAL_ENV=C:\Users\user\Desktop\store\venv
 
 if not defined PROMPT set PROMPT=$P$G
 
@@ -17,5 +17,6 @@ if not defined _OLD_VIRTUAL_PATH set _OLD_VIRTUAL_PATH=%PATH%
 
 set PATH=%VIRTUAL_ENV%\Scripts;%PATH%
 
-start C:\"Program Files (x86)"\Google\Chrome\Application\chrome.exe
+start C:\"Program Files"\Google\Chrome\Application\chrome.exe
 python manage.py runserver
+pause
