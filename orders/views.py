@@ -51,6 +51,7 @@ def add(request):
                     invo = inv.inventory
                     OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'],inventory=invo)
                     order_date = datetime.now().date()
+<<<<<<< HEAD
 
                     inventory_reports = InventoryReport.objects.filter(product=inv ,created__date = order_date)
 
@@ -68,6 +69,28 @@ def add(request):
                     order_date = datetime.now().date()
 
                     # Retrieve sales reports for the current product and date
+=======
+
+                    # Retrieve inventory reports for the current product and date
+                    inventory_reports = InventoryReport.objects.filter(product=inv, created__date=order_date)
+
+                    if not inventory_reports.exists():
+                        # If no inventory reports exist for the current date, create a new one
+                        inventory_report = InventoryReport.objects.create(product=inv, created=timezone.now())
+                        inventory_reports = [inventory_report]
+
+                    # Update all matching inventory reports
+                    for inventory_report in inventory_reports:
+                        inventory_report.days_on_hand = inventory_report.calculate_days_on_hand()
+                        inventory_report.inventory_on_hand = inv.inventory
+                        inventory_report.update_inventory_on_hand = inv.inventory  # Assuming this is the correct field to update
+                        inventory_report.amount_sold = inventory_report.calculate_amount_sold()
+                        inventory_report.save()
+
+                    order_date = datetime.now().date()
+
+# Retrieve sales reports for the current product and date
+>>>>>>> f0b1e47d8f1b0f93635e3c366d69759cec10ce6b
                     sales_reports = SalesReport.objects.filter(product=inv, date_created__date=order_date)
 
                     if not sales_reports.exists():

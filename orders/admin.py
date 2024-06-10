@@ -12,9 +12,12 @@ class InventoryAdmin(admin.ModelAdmin):
     actions = ["export_as_csv"]
 
     def export_as_csv(self, request, queryset):
-
         meta = self.model._meta
+<<<<<<< HEAD
         field_names = [field.name for field in meta.fields if field.name not in ["id"]]
+=======
+        field_names = [field.name for field in meta.fields if field.name not in ["created","id"]]
+>>>>>>> f0b1e47d8f1b0f93635e3c366d69759cec10ce6b
 
         earliest_date = queryset.order_by('created').values_list('created', flat=True).first()
         latest_date = queryset.order_by('-created').values_list('created', flat=True).first()
@@ -32,8 +35,11 @@ class InventoryAdmin(admin.ModelAdmin):
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = f'attachment; filename=inventory_{formatted_date}.csv'
 
+<<<<<<< HEAD
         writer = csv.writer(response)
         
+=======
+>>>>>>> f0b1e47d8f1b0f93635e3c366d69759cec10ce6b
         # Write the date range at the top of the CSV file
         writer.writerow([f"Inventory Report for: {date_range}"])
         writer.writerow([])  # Add an empty row for spacing
@@ -46,8 +52,12 @@ class InventoryAdmin(admin.ModelAdmin):
         return response
 
     export_as_csv.short_description = "Export Selected"
+<<<<<<< HEAD
 
     list_filter = (('created', DateRangeFilter),('created', DateRangeFilter))
+=======
+    list_filter = (('created', DateRangeFilter), ('created', DateTimeRangeFilter))
+>>>>>>> f0b1e47d8f1b0f93635e3c366d69759cec10ce6b
     list_display = ['product', 'days_on_hand','inventory_on_hand','quantity_sold','created']
 
 
@@ -58,7 +68,11 @@ class SalesAdmin(admin.ModelAdmin):
 
     def export_as_csv(self, request, queryset):
         meta = self.model._meta
+<<<<<<< HEAD
         field_names = [field.name for field in meta.fields if field.name not in [ "order","id"]]
+=======
+        field_names = [field.name for field in meta.fields if field.name not in ["date_created", "order","id"]]
+>>>>>>> f0b1e47d8f1b0f93635e3c366d69759cec10ce6b
 
         earliest_date = queryset.order_by('date_created').values_list('date_created', flat=True).first()
         latest_date = queryset.order_by('-date_created').values_list('date_created', flat=True).first()
