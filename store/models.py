@@ -99,3 +99,26 @@ class Product(models.Model):
         if save == True:
             self.save()
         return self.inventory
+
+
+class InventoryMovement(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='inventory_movements')
+    quantity = models.IntegerField()
+    movement_date = models.DateTimeField(auto_now_add=True)
+    movement_type = models.CharField(max_length=20, choices=[('Stock In', 'Stock In'), ('Stock Out', 'Stock Out')])
+
+    def __str__(self):
+        return f"{self.movement_type} of {self.quantity} units of {self.product.title} on {self.movement_date}"
+
+    def save(self, *args, **kwargs):
+        # Override the save method to update the inventory quantity
+        super().save(*args, **kwargs)
+        inventory = self.product
+        print(inventory)
+        if self.movement_type == 'Stock In':
+            inventory.inventory += self.quantity
+        elif self.movement_type == 'Stock Out':
+            inventory.inventory -= self.quantity
+        inventory.save()
+
+

@@ -1,7 +1,10 @@
 from django.contrib import admin
-from .models import Category, Product, SubCategory
+from .models import Category, Product, SubCategory,InventoryMovement
 
 
+@admin.register(InventoryMovement)
+class InventoryMovementAdmin(admin.ModelAdmin):
+    list_display = ['product', 'quantity','movement_date','movement_type']
 
 
 @admin.register(Category)
@@ -9,7 +12,6 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
     
-
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):

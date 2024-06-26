@@ -14,7 +14,7 @@ from django.db.models.functions import ExtractYear, ExtractMonth
 from django.http import JsonResponse
 
 from basket.basket import Basket
-from store.models import Product
+from store.models import Product, InventoryMovement
 from .models import Order, OrderItem, InventoryReport, SalesReport
 from utils.charts import months, colorPrimary, colorSuccess, colorDanger, generate_color_palette, get_year_dict
 
@@ -48,6 +48,11 @@ def add(request):
                 inv = Product.objects.get(id=product_id)
                 if inv.has_inventory():
                     inv.remove_items_from_inventory(count=quant)
+                    InventoryMovement.objects.create(
+                        product=inv,
+                        quantity=quant,
+                        movement_type='Stock Out'
+                    )
                     invo = inv.inventory
                     OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'],inventory=invo)
                     order_date = datetime.now().date()
