@@ -56,6 +56,25 @@ def add(request):
                     invo = inv.inventory
                     OrderItem.objects.create(order_id=order_id, product=item['product'], price=item['price'], quantity=item['qty'],inventory=invo)
                     order_date = datetime.now().date()
+<<<<<<< HEAD
+
+                    inventory_reports = InventoryReport.objects.filter(product=inv ,created__date = order_date)
+
+                    if not inventory_reports.exists():
+                        inventory_report = InventoryReport.objects.create(product=inv, created=timezone.now())
+                        inventory_reports = [inventory_report]
+
+                    for inventory_report in inventory_reports:
+                        inventory_report.days_on_hand = inventory_report.calculate_days_on_hand()
+                        inventory_report.inventory_on_hand = inv.inventory
+                        inventory_report.amount_sold = inventory_report.calculate_amount_sold()
+                        inventory_report.save()
+
+                    
+                    order_date = datetime.now().date()
+
+                    # Retrieve sales reports for the current product and date
+=======
 
                     # Retrieve inventory reports for the current product and date
                     inventory_reports = InventoryReport.objects.filter(product=inv, created__date=order_date)
@@ -76,6 +95,7 @@ def add(request):
                     order_date = datetime.now().date()
 
 # Retrieve sales reports for the current product and date
+>>>>>>> f0b1e47d8f1b0f93635e3c366d69759cec10ce6b
                     sales_reports = SalesReport.objects.filter(product=inv, date_created__date=order_date)
 
                     if not sales_reports.exists():
@@ -99,20 +119,22 @@ def add(request):
 
 def user_orders(request):
     user_id = request.user.id
-    orders = Order.objects.filter(user_id=user_id).filter(billing_status=True)[:50]
+    orders = Order.objects.filter(user_id=user_id).filter(billing_status=True)[:100]
     return orders
 
 @login_required
 def sales(request):
     user_id = request.user.id
-    sales = Order.objects.filter(user_id=user_id).filter(billing_status=True)[:50]
+    sales = Order.objects.filter(user_id=user_id).filter(billing_status=True)[:100]
     form = StockHistorySearchForm(request.POST or None)
     total = sum([sale.total_paid for sale in sales])
+    part_total= sum(sale.part_paid for sale in sales if sale.part_paid != sale.total_paid)
     if request.method == 'POST':
         sales = Order.objects.filter(user_id=user_id).filter(billing_status=True).filter(created__range=[form['start_date'].value(),form['end_date'].value()])
         total = sum([sale.total_paid for sale in sales])
+        part_total= sum(sale.part_paid for sale in sales if sale.part_paid != sale.total_paid)
     return render(request,
-                  'account/user/sales.html', {'sales':sales, 'form':form, 'total':total})
+                  'account/user/sales.html', {'sales':sales, 'form':form, 'total':total, 'part_total':part_total})
 
 def dash(request):
     orders = Order.objects.all()
@@ -135,6 +157,8 @@ def get_filter_options(request):
     })
 
 def get_sales_chart(request, year):
+    fixed_value = float(request.GET.get('fixed_value', 800000))
+
     purchases = Order.objects.filter(created__year=year)
     grouped_purchases = purchases.annotate(price=F("total_paid")).annotate(month=ExtractMonth("created"))\
         .values("month").annotate(average=Sum("total_paid")).values("month", "average").order_by("month")
@@ -143,8 +167,6 @@ def get_sales_chart(request, year):
 
     for group in grouped_purchases:
         sales_dict[months[group["month"]-1]] = round(group["average"], 2)
-
-    fixed_value = 800000
 
     return JsonResponse({
         "title": f"Sales in {year}",
@@ -197,7 +219,7 @@ def statistics_view(request):
 def get_most_sold_chart(request, year):
     # Query to get the most sold items for the specified year
     most_sold_items = OrderItem.objects.filter(order__created__year=year) \
-        .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:10]
+        .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('-total_quantity')[:15]
 
     # Prepare data for the chart
     labels = [item['product__title'] for item in most_sold_items]
@@ -222,7 +244,7 @@ def get_most_sold_chart(request, year):
 def get_least_sold_chart(request, year):
     # Query to get the most sold items for the specified year
     most_sold_items = OrderItem.objects.filter(order__created__year=year) \
-        .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('total_quantity')[:10]
+        .values('product__title').annotate(total_quantity=Sum('quantity')).order_by('total_quantity')[:15]
 
     # Prepare data for the chart
     labels = [item['product__title'] for item in most_sold_items]

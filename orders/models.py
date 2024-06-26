@@ -92,7 +92,7 @@ class SalesReport(models.Model):
         self.total_units_sold = self.calculate_total_units_sold()
         self.number_of_transactions = self.calculate_number_of_transactions()
         self.average_transaction_value = self.calculate_average_transaction_value()
-        super().save(*args, **kwargs)
+        super().save(*args, **kwargs)  # Call the real save() method
 
 
 
@@ -118,8 +118,13 @@ class InventoryReport(models.Model):
 
     def calculate_amount_sold(self):
         # Calculate total amount sold
+<<<<<<< HEAD
+        total_amount_sold = self.product.order_items.filter(order__created__date=self.created.date()).aggregate(total=Sum('quantity'))['total']
+        return total_amount_sold if total_amount_sold else 0
+=======
         total_quantity_sold = self.product.order_items.filter(order__created__date=self.created.date()).aggregate(total=Sum('quantity'))['total']
         return total_quantity_sold if total_quantity_sold else 0
+>>>>>>> f0b1e47d8f1b0f93635e3c366d69759cec10ce6b
 
     def save(self, *args, **kwargs):
         self.days_on_hand = self.calculate_days_on_hand()

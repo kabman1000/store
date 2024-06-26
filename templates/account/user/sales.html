@@ -15,20 +15,31 @@
             <thead>
                 <tr>
                   <th scope="col">Order #</th>
-                  <th scope="col">Paid</th>
+                  <th scope="col">Part Paid</th>
+                  <th scope="col">Total</th>
                   <th scope="col">Date Paid</th>
                 </tr>
             </thead>
               <tbody>
                 <tr>
                   <th scope="row">{{sale.order_number}}</th>
+                  {% if sale.part_paid != sale.total_paid %}
+                    <td>
+                      <span class="fw-bold">₵{{ sale.part_paid }}</span>
+                    </td>
+                  {% else %}
+                    <td>
+                      <span class="fw-bold"></span>
+                    </td>
+                  {% endif %}
                   <td>₵{{ sale.total_paid }}</td>
                   <td>{{ sale.created.date }}</td>
                 </tr>
               </tbody>
             {% endfor %}
             <tr>
-              <td>Total</td>
+              <td>Grand Total</td>
+              <td>{{part_total}}</td>
               <td>{{total}}</td>
             </tr>
         </table>
